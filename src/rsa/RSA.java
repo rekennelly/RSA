@@ -49,7 +49,11 @@ public class RSA extends Application {
         return false;
     }
     
-    
+    // Take in the user inputs for p & q and check their validity
+    public static boolean inputChecker(int p, int q) {
+        //
+        return false;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
