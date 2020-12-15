@@ -1,6 +1,8 @@
 
 package rsa;
 
+import java.math.BigInteger;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,9 +14,9 @@ import javafx.stage.Stage;
  * @author kennelra
  */
 public class RSA extends Application {
-    
+    public static int bitLength = 1024;
     // Prime number checker
-    public static boolean primeNumberChecker(int p) {
+    public static boolean isPrime(int p) {
         // Check if the number is negative
         // We also know that 0 and 1 are not prime, so we include them
         // in the check here
@@ -49,10 +51,44 @@ public class RSA extends Application {
         return false;
     }
     
-    // Take in the user inputs for p & q and check their validity
-    public static boolean inputChecker(int p, int q) {
-        //
-        return false;
+    public static int primeNumberGenerator(int n) {
+//        int num = 0;
+//        Random rand = new Random(); // generate new random number
+//        num = rand.nextInt(1000) + 1; // generate number between 1 and 1001 
+//                                     // there are 168 primes in this range
+//        
+//        // Check if that number is prime
+//        while (!isPrime(num)) {
+//            num = rand.nextInt(1000) + 1; // generate a new number between 1 and 1001    
+//        }
+        int prime = (6 * n) + 1;
+
+        return prime;
+    }
+    
+    // Take in the user input x & check validity
+    public static boolean inputValidator(String x) {
+        // Check if integers
+        try {
+            int intX = Integer.parseInt(x);
+        } catch (NumberFormatException nfe) {
+            System.out.println("Number format exception error.");
+            return false;
+        }
+        return true;
+    }
+    
+    // Use the user's input integer to generate a large prime number for p or q
+    // via Fermat's Little Theorem: a^(n-1) % n = 1
+    public static BigInteger pqGenerator(int a) {
+        long aLong = (long) a;
+        // Seed the random generator with the user's input
+        Random r = new Random(aLong);
+        
+        // Use the random number to generate a probable prime with 
+        BigInteger bigA = BigInteger.probablePrime(bitLength, r);
+ 
+        return bigA;
     }
 
     @Override
