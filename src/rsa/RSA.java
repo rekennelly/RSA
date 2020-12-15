@@ -91,7 +91,7 @@ public class RSA extends Application {
         return bigA;
     }
     
-    public static String[] getPublicKeys(BigInteger p, BigInteger q) {
+    public static String[] getKeys(BigInteger p, BigInteger q) {
         // the modulus, n = pq
         BigInteger n = p.multiply(q);
         String nString = n.toString();
@@ -113,9 +113,17 @@ public class RSA extends Application {
         }
         String eString = e.toString();
         
-        String[] publicKeys = {nString, eString};
-        return publicKeys;
-    };
+        // The private decryption key d is the inverse of 
+        // e mod phi. 1 < d < phi
+        BigInteger d = e.modInverse(phi);
+        
+        String dString = d.toString();
+        
+        String keys[] = {nString, eString, dString};
+        
+        return keys;
+    }; 
+  
 
     @Override
     public void start(Stage stage) throws Exception {
