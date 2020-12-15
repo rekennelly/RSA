@@ -90,6 +90,32 @@ public class RSA extends Application {
  
         return bigA;
     }
+    
+    public static String[] getPublicKeys(BigInteger p, BigInteger q) {
+        // the modulus, n = pq
+        BigInteger n = p.multiply(q);
+        String nString = n.toString();
+
+        BigInteger pMinus1 = p.subtract(BigInteger.ONE);
+        BigInteger qMinus1 = q.subtract(BigInteger.ONE);
+        
+        // Calculate the totient --> phi = (p-1)(q-1)
+        BigInteger phi = pMinus1.multiply(qMinus1);
+        
+        // e must be relatively prime to phi and 1 < e < phi
+        Random r = new Random();
+        BigInteger e = BigInteger.probablePrime(bitLength/2, r);
+
+        // while the gcd of phi & e is greater than 1 AND 
+        // e is less than phi
+        while (phi.gcd(e).compareTo(BigInteger.ONE) > 0 && (e.compareTo(phi) < 0)) {
+            e.add(BigInteger.ONE);
+        }
+        String eString = e.toString();
+        
+        String[] publicKeys = {nString, eString};
+        return publicKeys;
+    };
 
     @Override
     public void start(Stage stage) throws Exception {
