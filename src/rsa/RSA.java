@@ -51,21 +51,6 @@ public class RSA extends Application {
         return false;
     }
     
-    public static int primeNumberGenerator(int n) {
-//        int num = 0;
-//        Random rand = new Random(); // generate new random number
-//        num = rand.nextInt(1000) + 1; // generate number between 1 and 1001 
-//                                     // there are 168 primes in this range
-//        
-//        // Check if that number is prime
-//        while (!isPrime(num)) {
-//            num = rand.nextInt(1000) + 1; // generate a new number between 1 and 1001    
-//        }
-        int prime = (6 * n) + 1;
-
-        return prime;
-    }
-    
     // Take in the user input x & check validity
     public static boolean inputValidator(String x) {
         // Check if integers
@@ -123,6 +108,38 @@ public class RSA extends Application {
         
         return keys;
     }; 
+    
+    
+    public static String encryptMessage(String nString, String eString, String message) {
+        // Conver n and e to integers
+        
+        BigInteger n = new BigInteger(nString);
+        BigInteger e = new BigInteger(eString);
+        
+        // Convert ASCII string into BigInteger of bytes
+        BigInteger m = new BigInteger(message.getBytes());
+        // encrypted message = m^e mod n
+        BigInteger encryptedMessageInt = m.modPow(e,n);
+        // return encrypted message string
+        String encryptedMessage = encryptedMessageInt.toString();
+        
+        return encryptedMessage;
+    }
+    
+    public static String decryptMessage(String nString, String dString, String message) {
+        // Convert n, d, and message to big integers
+        BigInteger n = new BigInteger(nString);
+        BigInteger d = new BigInteger(dString);
+        BigInteger encMessage = new BigInteger(message);
+        
+        // Decrypted message = encMessage ^ d % n
+        BigInteger decMessageInt = encMessage.modPow(d, n);
+        
+        // return decrypted message String
+        String decryptedMessage = new String(decMessageInt.toByteArray());
+        
+        return decryptedMessage;
+    }
   
 
     @Override
