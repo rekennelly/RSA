@@ -5,3 +5,5 @@ This is an RSA encryption key generator, encyrpter and decrypter. It takes 2 use
 which it then uses to generate public and private RSA keys.
 
 It also allows use to use the generate keys to encrypt and decrypt messages.
+
+It does this all in a Java GUI built using JavaFX. 
