@@ -146,7 +146,7 @@ public class RSA extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("RSAFXML.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("RSA Encryption Key Generator");
+        stage.setTitle("RSA Encryption and Decryption");
         stage.setScene(scene);
         stage.show();
     }
